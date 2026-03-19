@@ -6,9 +6,22 @@
   config_schema: {
     type: "object",
     properties: {
-      my_api_key: { type: "string", secret: true },
+      model: { type: "string" },
+      max_tokens: { type: "integer" },
+      top_p: { type: "number" },
+      temperature: { type: "number" },
+      max_trajectory_length: { type: "integer" },
+      a11y_tree_max_tokens: { type: "integer" },
+      azure_openai_api_key: { type: "string", secret: true },
+      azure_openai_endpoint: { type: "string" },
+      openai_base_url: { type: "string" },
+      openai_api_key: { type: "string", secret: true },
+      anthropic_api_key: { type: "string", secret: true },
+      together_api_key: { type: "string", secret: true },
+      genai_api_key: { type: "string", secret: true },
+      groq_api_key: { type: "string", secret: true },
     },
-    required: ["my_api_key"],
+    required: [],
     additionalProperties: false,
   },
 
@@ -20,12 +33,25 @@
   // Runtime configuration
   program: {
     // TODO: Replace with your docker image
-    image: "ghcr.io/<your-username>/<your-repo-name>:latest",
+    image: "ghcr.io/rdi-foundation/osworld-purple:latest",
     entrypoint: "uv run python src/server.py --host 0.0.0.0 --port 9010",
 
     // TODO: Pass config values as environment variables
     env: {
-      MY_API_KEY: "${config.my_api_key}",
+      MODEL: "${config.model}",
+      MAX_TOKENS: "${config.max_tokens}",
+      TOP_P: "${config.top_p}",
+      TEMPERATURE: "${config.temperature}",
+      MAX_TRAJECTORY_LENGTH: "${config.max_trajectory_length}",
+      A11Y_TREE_MAX_TOKENS: "${config.a11y_tree_max_tokens}",
+      AZURE_OPENAI_API_KEY: "${config.azure_openai_api_key}",
+      AZURE_OPENAI_ENDPOINT: "${config.azure_openai_endpoint}",
+      OPENAI_BASE_URL: "${config.openai_base_url}",
+      OPENAI_API_KEY: "${config.openai_api_key}",
+      ANTHROPIC_API_KEY: "${config.anthropic_api_key}",
+      TOGETHER_API_KEY: "${config.together_api_key}",
+      GENAI_API_KEY: "${config.genai_api_key}",
+      GROQ_API_KEY: "${config.groq_api_key}",
     },
 
     network: {
